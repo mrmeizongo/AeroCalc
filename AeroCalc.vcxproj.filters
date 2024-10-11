@@ -21,13 +21,21 @@
     <ClCompile Include="aerocalc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cli.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aerocalc.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="cli.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include=".gitignore" />
+    <None Include="LICENSE.md" />
   </ItemGroup>
 </Project>
