@@ -9,12 +9,12 @@
 #include "aerocalc.h"
 #include "cli.h"
 
-PlaneSettings _planeSettings;
-
 float getInput(std::string textToDisplay, float defaultValeu);
 
 int main(int argc, char* argv[])
 {
+	PlaneSettings _planeSettings;
+
 	if (argc > 1)
 	{
 		if(!cli(argc, argv, _planeSettings)) return 1;
