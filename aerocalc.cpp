@@ -10,7 +10,7 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	averageMeanChord = (wingRootChord + wingTipChord) / 2.0f;
 	aspectRatio = wingspan / averageMeanChord;
 	wingSurfArea = wingspan * averageMeanChord;
-	wingLoad = (weight / 28.35f) / (wingSurfArea / 144);
+	wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);
 	fuseLen = wingspan * _planeSettings.fuseLenModifier;
 	noseLen = (fuseLen * 0.21f) - (0.25f * averageMeanChord);
 	tailLen = fuseLen - (noseLen + wingRootChord);
@@ -39,22 +39,24 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 std::ostream& operator<<(std::ostream& os, const AeroCalc& obj) {
 	os << "Plane Dimensions"
 		<< "\n----------------"
-		<< "\nWingspan: " << obj.wingspan << " inches"
-		<< "\nFuselage length: " << obj.fuseLen << " inches"
+		<< "\nWingspan: " << obj.wingspan << "mm"
+		<< "\nFuselage length: " << obj.fuseLen << "mm"
+		<< "\nNose length: " << obj.noseLen << "mm"
+		<< "\nTail length: " << obj.tailLen << "mm"
 		<< "\nAirplane weight: " << obj.weight << " grams"
 		<< "\nWing load: " << obj.wingLoad << " oz/ft^2" << " = " << obj.wLoad
-		<< "\nWing root chord: " << obj.wingRootChord << " inches"
-		<< "\nWing tip chord: " << obj.wingTipChord << " inches"
-		<< "\nAverage mean chord: " << obj.averageMeanChord << " inches"
-		<< "\nTotal wing surface area: " << obj.wingSurfArea << " square inches"
+		<< "\nWing root chord: " << obj.wingRootChord << "mm"
+		<< "\nWing tip chord: " << obj.wingTipChord << "mm"
+		<< "\nAverage mean chord: " << obj.averageMeanChord << "mm"
+		<< "\nTotal wing surface area: " << obj.wingSurfArea << "sq/mm"
 		<< "\nAspect ratio: " << obj.aspectRatio
-		<< "\nHorizontal stab area: " << obj.hStabArea
-		<< "\nHorizontal stab span: " << obj.hStabSpan
-		<< "\nHorizontal stab chord: " << obj.hStabChord
-		<< "\nElevator chord: " << obj.elevChord
-		<< "\nVertical stab area: " << obj.vStabArea
-		<< "\nVertical stab height: " << obj.vStabHeight
-		<< "\nVertical stab width: " << obj.vStabWidth
-		<< "\nRudder width: " << obj.rudWidth;
+		<< "\nHorizontal stab area: " << obj.hStabArea << "sq/mm"
+		<< "\nHorizontal stab span: " << obj.hStabSpan << "mm"
+		<< "\nHorizontal stab chord: " << obj.hStabChord << "mm"
+		<< "\nElevator chord: " << obj.elevChord << "mm"
+		<< "\nVertical stab area: " << obj.vStabArea << "sq/mm"
+		<< "\nVertical stab height: " << obj.vStabHeight << "mm"
+		<< "\nVertical stab width: " << obj.vStabWidth << "mm"
+		<< "\nRudder width: " << obj.rudWidth << "mm";
 	return os;
 }

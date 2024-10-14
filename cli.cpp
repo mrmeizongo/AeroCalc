@@ -1,13 +1,13 @@
 #include "cli.h"
 #include <string>
 
-std::string helpTxt = "Usage:\tAeroCalc [option] [...param]"
+std::string helpTxt = "Usage:\tAeroCalc [option] [...params]"
 "\n\tAeroCalc [Wingspan] [FuselageLengthModifier] [WingRootChordModifier] [WingTipChordModifier] [HStabAreaModifier] [vStabAreaModifier] [Weight]"
 "\nOptions:"
 "\n-h, --help\t\t\tPrint command line options"
 "\n-w, --wingload\t\t\tCalculate wingload for a given weight, wingpspan, and average mean chord parameters"
 "\n\nRunning program without arguments uses default values for airplane settings"
-"\nWeight values are in grams and length values are in inches";
+"\nWeight values are in grams and length values are in millimeters";
 
 
 bool cli(int argc, char* argv[], PlaneSettings& _planeSettings)

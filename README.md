@@ -3,16 +3,18 @@ It was inspired by Chuck Cunningham's RC Design Made Easy guide.
 The guide can be found at [Chuck Cunningham's RC Design Made Easy](https://www.rcuniverse.com/forum/scratch-building-aircraft-design-3d-cad-174/11560594-cunninghams-rcm-design-information.html)  
 If you clone the project and add other features please submit a pull request. :)
 
-Usage: AeroCalc [option]  
+Usage: AeroCalc [option]  [...params]
 AeroCalc [Wingspan] [FuselageLengthModifier] [WingRootChordModifier] [WingTipChordModifier] [HStabAreaModifier] [vStabAreaModifier] [Weight]
 
 Options:  
--h, --help			Print command line options"
+-h, --help			Print command line options
+-w, --wingload		Calculate wingload for a given weight, wingpspan, and average mean chord parameters
 
-Running program without arguments uses default values for airplane settings
+Running program without arguments uses default values for airplane settings  
+Weight values are in grams and length values are in millimeters
 
 Default values:  
-Wingspan = 48 inches  
+Wingspan = 1200 mm  
 FuselageLength = FuseLenModifier(0...1) is 75% of wingspan  
 WingRootChord = WingRootChordModifier(0...1) is 16.67% of wingspan or 1/6 of wingspan  
 WingTipChord = WingTipChordModifier(0...1) is 100% of wingRootChord  

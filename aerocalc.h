@@ -3,7 +3,7 @@
 #include <iostream>
 
 // Default values
-constexpr float WINGSPAN = 48.0f;
+constexpr float WINGSPAN = 1200.0f;
 constexpr float FUSELENMODIFIER = 0.75f;
 constexpr float WINGROOTCHORDMODIFIER = 0.1667f;
 constexpr float WINGTIPCHORDMODIFIER = 1.0f;
@@ -25,7 +25,7 @@ struct PlaneSettings
 	/*
 	* Wingspan, FuselageLengthModifier, WingRootChordModifier, WingTipChordModifier, Weight
 	* Defaults:
-	* Wingspan = 48 inches
+	* Wingspan = 1200 mm
 	* FuselageLength = FuseLenModifier(0...1) is 75% of wingspan
 	* WingRootChord = WingRootChordModifier(0...1) is 16.67% of wingspan or 1/6 of wingspan
 	* WingTipChord = WingTipChordModifier(0...1) is 100% of wingRootChord
