@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 	else
 	{
 		std::cout << "Enter plane dimensions"
-			<< "\nLength modifiers are in percentages(0..1), wingspan is in inches and weight is in grams"
+			<< "\nLength modifiers are in percentages(0..1), wingspan is in millimeters and weight is in grams"
 			<< "\nLeave input blank and press enter key to use default values"
 			<< std::endl;
 		std::string input;
