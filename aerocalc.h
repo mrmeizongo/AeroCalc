@@ -50,6 +50,9 @@ private:
 	float wingspan;	// Length of wing * 2
 	float wingRootChord;	// Wing root chord
 	float wingTipChord; // Wing tip chord
+	float aileronSurfArea;	// Area of 1 aileron. 6% of total wing surface area for barn door type and 4% for strip type
+	float aileronChord;	// 25% of wing chord for barn door type and 10% for strip type
+	float aileronLen;	// Aileron length
 	float averageMeanChord; // Average mean chord i.e. (root chord + tip chord) / 2
 	float aspectRatio;	// Wing to chord ratio
 	float wingSurfArea;	// Total wing surface area

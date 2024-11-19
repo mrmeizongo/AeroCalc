@@ -41,6 +41,9 @@ bool cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 	}
 	else
 	{
+		//std::string aileronType = argv[1];
+		// TODO aileron
+
 		switch (argc)
 		{
 		case 2:
