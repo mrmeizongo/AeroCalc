@@ -1,5 +1,5 @@
-#include "aerocalc.h"
 #include <cmath>
+#include "aerocalc.h"
 
 AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 {
