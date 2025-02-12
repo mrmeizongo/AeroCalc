@@ -2,7 +2,8 @@
 #include <string>
 #include <sstream>
 
-std::string helpTxt = "Usage:\tAeroCalc [option] [...params]"
+std::string helpTxt = "Usage: "
+"\tAeroCalc [option] [...params]"
 "\n\tAeroCalc [Wingspan] [FuselageLengthModifier] [WingRootChordModifier] [WingTipChordModifier] [HStabAreaModifier] [vStabAreaModifier] [Weight]"
 "\nOptions:"
 "\n-h, --help\t\t\tPrint command line options"
@@ -54,9 +55,9 @@ bool cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 					std::cout << helpTxt << std::endl;
 					return false;
 				}
-				float weight = std::stod(argv[2]);
-				float wingspan = std::stod(argv[3]);
-				float averageMeanChord = std::stod(argv[4]);
+				float weight = (float)std::stod(argv[2]);
+				float wingspan = (float)std::stod(argv[3]);
+				float averageMeanChord = (float)std::stod(argv[4]);
 				float wingSurfArea = wingspan * averageMeanChord;
 				float wingLoad = (weight / 28.35f) / (wingSurfArea / 144);
 				std::cout << "Wing load: " << wingLoad << " oz/ft^2" << std::endl;
@@ -69,64 +70,64 @@ bool cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 				return false;
 			}
 
-			float wingspan = std::stod(argv[1]);
+			float wingspan = (float)std::stod(argv[1]);
 			_planeSettings = PlaneSettings(wingspan);
 			break;
 		}
 		case 3:
 		{
-			float wingspan = std::stod(argv[1]);
-			float fuseLenModifier = std::stod(argv[2]);
+			float wingspan = (float)std::stod(argv[1]);
+			float fuseLenModifier = (float)std::stod(argv[2]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier);
 			break;
 		}
 		case 4:
 		{
-			float wingspan = std::stod(argv[1]);
-			float fuseLenModifier = std::stod(argv[2]);
-			float wingRootChordModifier = std::stod(argv[3]);
+			float wingspan = (float)std::stod(argv[1]);
+			float fuseLenModifier = (float)std::stod(argv[2]);
+			float wingRootChordModifier = (float)std::stod(argv[3]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier);
 			break;
 		}
 		case 5:
 		{
-			float wingspan = std::stod(argv[1]);
-			float fuseLenModifier = std::stod(argv[2]);
-			float wingRootChordModifier = std::stod(argv[3]);
-			float wingTipChordModifier = std::stod(argv[4]);
+			float wingspan = (float)std::stod(argv[1]);
+			float fuseLenModifier = (float)std::stod(argv[2]);
+			float wingRootChordModifier = (float)std::stod(argv[3]);
+			float wingTipChordModifier = (float)std::stod(argv[4]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier);
 			break;
 		}
 		case 6:
 		{
-			float wingspan = std::stod(argv[1]);
-			float fuseLenModifier = std::stod(argv[2]);
-			float wingRootChordModifier = std::stod(argv[3]);
-			float wingTipChordModifier = std::stod(argv[4]);
-			float hStabAreaModifier = std::stod(argv[5]);
+			float wingspan = (float)std::stod(argv[1]);
+			float fuseLenModifier = (float)std::stod(argv[2]);
+			float wingRootChordModifier = (float)std::stod(argv[3]);
+			float wingTipChordModifier = (float)std::stod(argv[4]);
+			float hStabAreaModifier = (float)std::stod(argv[5]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier, wingTipChordModifier, hStabAreaModifier);
 			break;
 		}
 		case 7:
 		{
-			float wingspan = std::stod(argv[1]);
-			float fuseLenModifier = std::stod(argv[2]);
-			float wingRootChordModifier = std::stod(argv[3]);
-			float wingTipChordModifier = std::stod(argv[4]);
-			float hStabAreaModifier = std::stod(argv[5]);
-			float vStabAreaModifier = std::stod(argv[6]);
+			float wingspan = (float)std::stod(argv[1]);
+			float fuseLenModifier = (float)std::stod(argv[2]);
+			float wingRootChordModifier = (float)std::stod(argv[3]);
+			float wingTipChordModifier = (float)std::stod(argv[4]);
+			float hStabAreaModifier = (float)std::stod(argv[5]);
+			float vStabAreaModifier = (float)std::stod(argv[6]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier, wingTipChordModifier, hStabAreaModifier, vStabAreaModifier);
 			break;
 		}
 		case 8:
 		{
-			float wingspan = std::stod(argv[1]);
-			float fuseLenModifier = std::stod(argv[2]);
-			float wingRootChordModifier = std::stod(argv[3]);
-			float wingTipChordModifier = std::stod(argv[4]);
-			float hStabAreaModifier = std::stod(argv[5]);
-			float vStabAreaModifier = std::stod(argv[6]);
-			float weight = std::stod(argv[7]);
+			float wingspan = (float)std::stod(argv[1]);
+			float fuseLenModifier = (float)std::stod(argv[2]);
+			float wingRootChordModifier = (float)std::stod(argv[3]);
+			float wingTipChordModifier = (float)std::stod(argv[4]);
+			float hStabAreaModifier = (float)std::stod(argv[5]);
+			float vStabAreaModifier = (float)std::stod(argv[6]);
+			float weight = (float)std::stod(argv[7]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier, wingTipChordModifier, hStabAreaModifier, vStabAreaModifier, weight);
 			break;
 		}
@@ -136,7 +137,8 @@ bool cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 	}
 	catch (const std::invalid_argument& e)
 	{
-		std::cerr << "Invalid argument: " << e.what() << std::endl;
+		(void)e;
+		std::cerr << "Invalid option." << std::endl;
 		std::cout << helpTxt << std::endl;
 		return false;
 	}
