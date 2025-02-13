@@ -27,6 +27,8 @@ int main(int argc, char* argv[])
 		return 1;
 	case StatusCode::INVALID_ARG_COUNT:
 		return 2;
+	default:
+		return 3;
 	}
 }
 
