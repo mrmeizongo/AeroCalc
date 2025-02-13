@@ -9,14 +9,25 @@
 int main(int argc, char* argv[])
 {
 	PlaneSettings planeSettings;
+	StatusCode status = cli(argc, argv, planeSettings);
 
-	if (!cli(argc, argv, planeSettings))
+	switch (status)
+	{
+	case StatusCode::OK:
+	{
+		AeroCalc plane = AeroCalc(planeSettings);
+		std::cout << std::fixed << std::setprecision(2);
+		std::cout << plane << std::endl;
+		return 0;
+	}
+	case StatusCode::HELP:
+	case StatusCode::NO_OP:
+		return 0;
+	case StatusCode::INVALID_ARG:
 		return 1;
-
-	AeroCalc plane = AeroCalc(planeSettings);
-	std::cout << std::fixed << std::setprecision(2);
-	std::cout << plane << std::endl;
-	return 0;
+	case StatusCode::INVALID_ARG_COUNT:
+		return 2;
+	}
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

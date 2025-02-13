@@ -11,13 +11,13 @@ std::string helpTxt = "Usage: "
 "\n\nRunning program without arguments uses default values for airplane settings"
 "\nWeight values are in grams and length values are in millimeters";
 
-bool cli(int argc, char* argv[], PlaneSettings& _planeSettings)
+StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 {
 	if (argc > 8)
 	{
 		std::cerr << "Arguments cannot exceed 7" << std::endl;
 		std::cout << helpTxt << std::endl;
-		return false;
+		return StatusCode::INVALID_ARG_COUNT;
 	}
 
 	try
@@ -48,26 +48,10 @@ bool cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 		{
 			std::string arg = argv[1];
 
-			if (arg == "--wingload" || arg == "-w")
-			{
-				if (argc != 5)
-				{
-					std::cout << helpTxt << std::endl;
-					return false;
-				}
-				float weight = (float)std::stod(argv[2]);
-				float wingspan = (float)std::stod(argv[3]);
-				float averageMeanChord = (float)std::stod(argv[4]);
-				float wingSurfArea = wingspan * averageMeanChord;
-				float wingLoad = (weight / 28.35f) / (wingSurfArea / 144);
-				std::cout << "Wing load: " << wingLoad << " oz/ft^2" << std::endl;
-				return false;
-			}
-
 			if (arg == "--help" || arg == "-h")
 			{
 				std::cout << helpTxt << std::endl;
-				return false;
+				return StatusCode::HELP;
 			}
 
 			float wingspan = (float)std::stod(argv[1]);
@@ -91,6 +75,30 @@ bool cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 		}
 		case 5:
 		{
+			std::string arg = argv[1];
+
+			if (arg == "--wingload" || arg == "-w")
+			{
+				float weight = (float)std::stod(argv[2]);
+				float wingspan = (float)std::stod(argv[3]);
+				float averageMeanChord = (float)std::stod(argv[4]);
+				float wingSurfArea = wingspan * averageMeanChord;
+				float wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);
+				std::string wLoad;
+				if (wingLoad < 10)
+					wLoad = "Very Low";
+				else if (wingLoad >= 10 && wingLoad <= 12)
+					wLoad = "Low";
+				else if (wingLoad > 12 && wingLoad < 16)
+					wLoad = "Moderate";
+				else if (wingLoad >= 16 && wingLoad <= 20)
+					wLoad = "High";
+				else
+					wLoad = "Very High";
+				std::cout << "Wing load: " << wingLoad << " oz/ft^2 = " << wLoad << std::endl;
+				return StatusCode::NO_OP;
+			}
+
 			float wingspan = (float)std::stod(argv[1]);
 			float fuseLenModifier = (float)std::stod(argv[2]);
 			float wingRootChordModifier = (float)std::stod(argv[3]);
@@ -140,10 +148,10 @@ bool cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 		(void)e;
 		std::cerr << "Invalid option." << std::endl;
 		std::cout << helpTxt << std::endl;
-		return false;
+		return StatusCode::INVALID_ARG;
 	}
 
-	return true;
+	return StatusCode::OK;
 }
 
 float getInput(std::string textToDisplay, float defaultValue)
