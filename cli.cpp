@@ -54,22 +54,22 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 				return StatusCode::HELP;
 			}
 
-			float wingspan = (float)std::stod(argv[1]);
+			float wingspan = std::stof(argv[1]);
 			_planeSettings = PlaneSettings(wingspan);
 			break;
 		}
 		case 3:
 		{
-			float wingspan = (float)std::stod(argv[1]);
-			float fuseLenModifier = (float)std::stod(argv[2]);
+			float wingspan = std::stof(argv[1]);
+			float fuseLenModifier = std::stof(argv[2]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier);
 			break;
 		}
 		case 4:
 		{
-			float wingspan = (float)std::stod(argv[1]);
-			float fuseLenModifier = (float)std::stod(argv[2]);
-			float wingRootChordModifier = (float)std::stod(argv[3]);
+			float wingspan = std::stof(argv[1]);
+			float fuseLenModifier = std::stof(argv[2]);
+			float wingRootChordModifier = std::stof(argv[3]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier);
 			break;
 		}
@@ -79,9 +79,9 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 
 			if (arg == "--wingload" || arg == "-w")
 			{
-				float weight = (float)std::stod(argv[2]);
-				float wingspan = (float)std::stod(argv[3]);
-				float averageMeanChord = (float)std::stod(argv[4]);
+				float weight = std::stof(argv[2]);
+				float wingspan = std::stof(argv[3]);
+				float averageMeanChord = std::stof(argv[4]);
 				float wingSurfArea = wingspan * averageMeanChord;
 				float wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);
 				std::string wLoad;
@@ -99,43 +99,43 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 				return StatusCode::NO_OP;
 			}
 
-			float wingspan = (float)std::stod(argv[1]);
-			float fuseLenModifier = (float)std::stod(argv[2]);
-			float wingRootChordModifier = (float)std::stod(argv[3]);
-			float wingTipChordModifier = (float)std::stod(argv[4]);
+			float wingspan = std::stof(argv[1]);
+			float fuseLenModifier = std::stof(argv[2]);
+			float wingRootChordModifier = std::stof(argv[3]);
+			float wingTipChordModifier = std::stof(argv[4]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier);
 			break;
 		}
 		case 6:
 		{
-			float wingspan = (float)std::stod(argv[1]);
-			float fuseLenModifier = (float)std::stod(argv[2]);
-			float wingRootChordModifier = (float)std::stod(argv[3]);
-			float wingTipChordModifier = (float)std::stod(argv[4]);
-			float hStabAreaModifier = (float)std::stod(argv[5]);
+			float wingspan = std::stof(argv[1]);
+			float fuseLenModifier = std::stof(argv[2]);
+			float wingRootChordModifier = std::stof(argv[3]);
+			float wingTipChordModifier = std::stof(argv[4]);
+			float hStabAreaModifier = std::stof(argv[5]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier, wingTipChordModifier, hStabAreaModifier);
 			break;
 		}
 		case 7:
 		{
-			float wingspan = (float)std::stod(argv[1]);
-			float fuseLenModifier = (float)std::stod(argv[2]);
-			float wingRootChordModifier = (float)std::stod(argv[3]);
-			float wingTipChordModifier = (float)std::stod(argv[4]);
-			float hStabAreaModifier = (float)std::stod(argv[5]);
-			float vStabAreaModifier = (float)std::stod(argv[6]);
+			float wingspan = std::stof(argv[1]);
+			float fuseLenModifier = std::stof(argv[2]);
+			float wingRootChordModifier = std::stof(argv[3]);
+			float wingTipChordModifier = std::stof(argv[4]);
+			float hStabAreaModifier = std::stof(argv[5]);
+			float vStabAreaModifier = std::stof(argv[6]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier, wingTipChordModifier, hStabAreaModifier, vStabAreaModifier);
 			break;
 		}
 		case 8:
 		{
-			float wingspan = (float)std::stod(argv[1]);
-			float fuseLenModifier = (float)std::stod(argv[2]);
-			float wingRootChordModifier = (float)std::stod(argv[3]);
-			float wingTipChordModifier = (float)std::stod(argv[4]);
-			float hStabAreaModifier = (float)std::stod(argv[5]);
-			float vStabAreaModifier = (float)std::stod(argv[6]);
-			float weight = (float)std::stod(argv[7]);
+			float wingspan = std::stof(argv[1]);
+			float fuseLenModifier = std::stof(argv[2]);
+			float wingRootChordModifier = std::stof(argv[3]);
+			float wingTipChordModifier = std::stof(argv[4]);
+			float hStabAreaModifier = std::stof(argv[5]);
+			float vStabAreaModifier = std::stof(argv[6]);
+			float weight = std::stof(argv[7]);
 			_planeSettings = PlaneSettings(wingspan, fuseLenModifier, wingRootChordModifier, wingTipChordModifier, hStabAreaModifier, vStabAreaModifier, weight);
 			break;
 		}
