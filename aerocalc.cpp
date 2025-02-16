@@ -29,9 +29,9 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 
 	if (wingLoad < 10)
 		wLoad = "Very Low";
-	else if (wingLoad >= 10 && wingLoad <= 12)
+	else if (wingLoad >= 10)
 		wLoad = "Low";
-	else if (wingLoad > 12 && wingLoad < 16)
+	else if (wingLoad >= 12)
 		wLoad = "Moderate";
 	else if (wingLoad >= 16 && wingLoad <= 20)
 		wLoad = "High";
