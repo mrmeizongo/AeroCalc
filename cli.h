@@ -2,6 +2,7 @@
 #define _CLI_
 #include "aerocalc.h"
 #include <string>
+using std::string;
 
 #define AEROCALC_VERSION "1.0.0"
 
@@ -18,11 +19,11 @@ enum class StatusCode : uint8_t
 StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings);
 
 // Utility function to get input from user
-float getInput(std::string textToDisplay, float defaultValeu);
+float getInput(string textToDisplay, float defaultValeu);
 
 // Utility function to calculate wingload
 void wingLoad(float _weight = 0.f, float _wingspan = 0.f, float averageMC = 0.f);
 
 // Utility function to display help
-void display(std::string textToDisplay);
+void display(string textToDisplay);
 #endif
