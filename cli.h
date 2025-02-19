@@ -23,7 +23,4 @@ float getInput(string textToDisplay, float defaultValeu);
 
 // Utility function to calculate wingload
 void wingLoad(float _weight = 0.f, float _wingspan = 0.f, float averageMC = 0.f);
-
-// Utility function to display help
-void display(string textToDisplay);
 #endif
