@@ -64,7 +64,7 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 				return StatusCode::NO_OP;
 			}
 
-			float wingspan = stof(argv[1]);
+			float wingspan = stof(arg);
 			_planeSettings = PlaneSettings(wingspan);
 			break;
 		}

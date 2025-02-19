@@ -27,23 +27,23 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	elevChord = 0.25f * hStabChord;
 	rudWidth = vStabWidth / 2.0f;
 
-	if (wingLoad < 10)
-		wLoad = "Very Low";
-	else if (wingLoad >= 10)
-		wLoad = "Low";
+	if (wingLoad > 20)
+		wLoad = "Very High";
+	else if (wingLoad >= 16)
+		wLoad = "High";
 	else if (wingLoad >= 12)
 		wLoad = "Moderate";
-	else if (wingLoad >= 16 && wingLoad <= 20)
-		wLoad = "High";
+	else if (wingLoad >= 10)
+		wLoad = "Low";
 	else
-		wLoad = "Very High";
+		wLoad = "Very Low";
 
-	if (aspectRatio <= 6)
-		AR = "Low";
-	else if (aspectRatio > 6 && aspectRatio < 12)
+	if (aspectRatio > 12)
+		AR = "High";
+	else if (aspectRatio > 6)
 		AR = "Moderate";
 	else
-		AR = "High";
+		AR = "Low";
 }
 
 std::ostream& operator<<(std::ostream& os, const AeroCalc& obj) {
