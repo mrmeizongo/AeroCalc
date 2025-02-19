@@ -14,8 +14,7 @@ string helpTxt =
 "\n-h, --help\t\t\tPrint command line options"
 "\n-w, --wingload\t\t\tCalculate wingload for a given weight, wingpspan, and average mean chord parameters."
 "\n\nRunning program without arguments uses default values for airplane settings"
-"\nWeight values are in grams and length values are in millimeters"
-"\n";
+"\nWeight values are in grams and length values are in millimeters";
 
 StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 {
