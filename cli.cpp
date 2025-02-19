@@ -1,23 +1,28 @@
 #include "cli.h"
+#include <format>
 #include <string>
 #include <sstream>
+#define DISPLAY(txt) cout << (txt);
+
 using namespace std;
 
-string helpTxt = "Usage: "
+string helpTxt =
+"Usage: "
 "\tAeroCalc [option] [...params]"
 "\n\tAeroCalc [Wingspan] [FuselageLengthModifier] [WingRootChordModifier] [WingTipChordModifier] [HStabAreaModifier] [vStabAreaModifier] [Weight]"
 "\nOptions:"
 "\n-h, --help\t\t\tPrint command line options"
 "\n-w, --wingload\t\t\tCalculate wingload for a given weight, wingpspan, and average mean chord parameters."
 "\n\nRunning program without arguments uses default values for airplane settings"
-"\nWeight values are in grams and length values are in millimeters";
+"\nWeight values are in grams and length values are in millimeters"
+"\n";
 
 StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 {
 	if (argc > 8)
 	{
 		cerr << "Arguments cannot exceed 7" << endl;
-		cout << helpTxt << endl;
+		DISPLAY(helpTxt);
 		return StatusCode::INVALID_ARG_COUNT;
 	}
 
@@ -27,10 +32,11 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 		{
 		case 1:
 		{
-			cout << "Enter plane dimensions"
-				<< "\nLength modifiers are in percentages(0..1), wingspan is in millimeters and weight is in grams"
-				<< "\nLeave input blank and press enter key to use default values"
-				<< endl;
+			DISPLAY(
+				"Enter plane dimensions."
+				"\nLength modifiers are in percentages(0..1), wingspan is in millimeters and weight is in grams."
+				"\nLeave input blank and press enter key to use default values."
+				"\n");
 			string input;
 			float ws = getInput("Winspan", WINGSPAN);
 			float flm = getInput("FuselageLengthModifier", FUSELENMODIFIER);
@@ -39,8 +45,6 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 			float hsam = getInput("HStabAreaModifier", HSTABAREAMODIFIER);
 			float vsam = getInput("VStabAreaModifier", VSTABAREAMODIFIER);
 			float w = getInput("Weight", WEIGHT);
-
-			cout << endl;
 
 			_planeSettings = PlaneSettings(ws, flm, wrcm, wtcm, hsam, vsam, w);
 			break;
@@ -51,13 +55,13 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 
 			if (arg == "--help" || arg == "-h")
 			{
-				display(helpTxt);
+				DISPLAY(helpTxt);
 				return StatusCode::HELP;
 			}
 
 			if (arg == "--version" || arg == "-v")
 			{
-				display(AEROCALC_VERSION);
+				DISPLAY(AEROCALC_VERSION);
 				return StatusCode::NO_OP;
 			}
 
@@ -138,7 +142,7 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 	{
 		(void)e;
 		cerr << "Invalid option." << endl;
-		display(helpTxt);
+		DISPLAY(helpTxt);
 		return StatusCode::INVALID_ARG;
 	}
 
@@ -151,7 +155,7 @@ float getInput(string textToDisplay, float defaultValue)
 	bool valid = false;
 	while (!valid)
 	{
-		cout << textToDisplay << "(" << defaultValue << "): ";
+		DISPLAY(format("{}({}): ", textToDisplay, defaultValue));
 		string input;
 		getline(cin, input);
 		if (input.empty())
@@ -173,12 +177,9 @@ float getInput(string textToDisplay, float defaultValue)
 	return value;
 }
 
-void wingLoad(float _weight, float _wingspan, float averageMC)
+void wingLoad(float weight, float wingspan, float averageMC)
 {
-	float weight = _weight;
-	float wingspan = _wingspan;
-	float averageMeanChord = averageMC;
-	float wingSurfArea = wingspan * averageMeanChord;
+	float wingSurfArea = wingspan * averageMC;
 	float wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);
 	string wLoad;
 	if (wingLoad < 10)
@@ -191,10 +192,5 @@ void wingLoad(float _weight, float _wingspan, float averageMC)
 		wLoad = "High";
 	else
 		wLoad = "Very High";
-	cout << "Wing load: " << wingLoad << " oz/ft^2 = " << wLoad << endl;
-}
-
-void display(string textToDisplay)
-{
-	cout << textToDisplay << endl;
+	DISPLAY(format("Wing load: {:.2f}oz/ft^2 = {}", wingLoad, wLoad));
 }

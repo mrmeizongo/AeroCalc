@@ -70,5 +70,6 @@ private:
 	float rudWidth;	// Rudder width
 	float wingLoad;	// Wing load i.e. airplane weight(in oz) divided by wing surface area(in square ft)
 	std::string wLoad;	// wing load category i.e. very low, low, moderate, high, very high
+	std::string AR;	// aspect ratio i.e. low, mid and high
 };
 #endif

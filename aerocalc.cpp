@@ -37,6 +37,13 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 		wLoad = "High";
 	else
 		wLoad = "Very High";
+
+	if (aspectRatio <= 6)
+		AR = "Low";
+	else if (aspectRatio > 6 && aspectRatio < 12)
+		AR = "Moderate";
+	else
+		AR = "High";
 }
 
 std::ostream& operator<<(std::ostream& os, const AeroCalc& obj) {
@@ -47,22 +54,22 @@ std::ostream& operator<<(std::ostream& os, const AeroCalc& obj) {
 		<< "\nNose length: " << obj.noseLen << "mm"
 		<< "\nTail length: " << obj.tailLen << "mm"
 		<< "\nAirplane weight: " << obj.weight << " grams"
-		<< "\nWing load: " << obj.wingLoad << " oz/ft^2" << " = " << obj.wLoad
 		<< "\nWing root chord: " << obj.wingRootChord << "mm"
 		<< "\nWing tip chord: " << obj.wingTipChord << "mm"
 		<< "\nAverage mean chord: " << obj.averageMeanChord << "mm"
 		<< "\nTotal wing surface area: " << obj.wingSurfArea << "sq/mm"
-		<< "\nAspect ratio: " << obj.aspectRatio
-		<< "\nAileron surface area: " << obj.aileronSurfArea << " sq/mm"
+		<< "\nWing load: " << obj.wingLoad << " oz/ft^2" << " = " << obj.wLoad
+		<< "\nAspect ratio: " << obj.aspectRatio << " = " << obj.AR
 		<< "\nAileron chord: " << obj.aileronChord << "mm"
 		<< "\nAileron length: " << obj.aileronLen << "mm"
-		<< "\nHorizontal stab area: " << obj.hStabArea << "sq/mm"
+		<< "\nAileron surface area: " << obj.aileronSurfArea << " sq/mm"
 		<< "\nHorizontal stab span: " << obj.hStabSpan << "mm"
 		<< "\nHorizontal stab chord: " << obj.hStabChord << "mm"
 		<< "\nElevator chord: " << obj.elevChord << "mm"
-		<< "\nVertical stab area: " << obj.vStabArea << "sq/mm"
+		<< "\nHorizontal stab area: " << obj.hStabArea << "sq/mm"
 		<< "\nVertical stab height: " << obj.vStabHeight << "mm"
 		<< "\nVertical stab width: " << obj.vStabWidth << "mm"
-		<< "\nRudder width: " << obj.rudWidth << "mm";
+		<< "\nRudder width: " << obj.rudWidth << "mm"
+		<< "\nVertical stab area: " << obj.vStabArea << "sq/mm";
 	return os;
 }
