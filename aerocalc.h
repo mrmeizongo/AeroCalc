@@ -4,7 +4,8 @@
 
 // Default values
 constexpr float WINGSPAN = 1200.0f;
-constexpr float FUSELENMODIFIER = 0.75f;
+constexpr float FUSELENMODIFIER = 0.7f;
+constexpr float NOSELENMODIFIER = 0.21f;
 constexpr float WINGROOTCHORDMODIFIER = 0.1667f;
 constexpr float WINGTIPCHORDMODIFIER = 1.0f;
 constexpr float HSTABAREAMODIFIER = 0.225f;
@@ -16,6 +17,7 @@ struct PlaneSettings
 {
 	float wingspan;
 	float fuseLenModifier;
+	float noseLenModifier;
 	float wingRootChordModifier;
 	float wingTipChordModifier;
 	float hStabAreaModifier;
@@ -27,16 +29,17 @@ struct PlaneSettings
 	* Defaults:
 	* Wingspan = 1200 mm
 	* FuselageLength = FuseLenModifier(0...1) is 75% of wingspan
+	* NoseLength = NoseLenModifier(0...1) is 21% of fuselage length
 	* WingRootChord = WingRootChordModifier(0...1) is 16.67% of wingspan or 1/6 of wingspan
 	* WingTipChord = WingTipChordModifier(0...1) is 100% of wingRootChord
 	* HorizontalStabArea = HStabAreaModifier(0...1) is 22.5% of winspan area
 	* VerticalStabArea = VStabAreaModifier(0...1) is 11.25% of winspan area
 	* Weight = 1000 grams (Estimate used for approximating wing load)
 	*/
-	PlaneSettings(float _wingspan = WINGSPAN, float _fuseLenModifier = FUSELENMODIFIER,
+	PlaneSettings(float _wingspan = WINGSPAN, float _fuseLenModifier = FUSELENMODIFIER, float _noseLenModifier = NOSELENMODIFIER,
 		float _wingRootChordModifier = WINGROOTCHORDMODIFIER, float _wingTipChordModifier = WINGTIPCHORDMODIFIER,
 		float _hStabAreaModifier = HSTABAREAMODIFIER, float _vStabAreaModifier = VSTABAREAMODIFIER, float _weight = WEIGHT)
-		:wingspan(_wingspan), fuseLenModifier(_fuseLenModifier), wingRootChordModifier(_wingRootChordModifier),
+		:wingspan(_wingspan), fuseLenModifier(_fuseLenModifier), noseLenModifier(_noseLenModifier), wingRootChordModifier(_wingRootChordModifier),
 		wingTipChordModifier(_wingTipChordModifier), hStabAreaModifier(_hStabAreaModifier), vStabAreaModifier(_vStabAreaModifier), weight(_weight) {}
 };
 
@@ -53,7 +56,7 @@ private:
 	float aileronSurfArea;	// Area of 1 aileron. 6% of total wing surface area for barn door type and 4% for strip type
 	float aileronChord;	// 25% of wing chord for barn door type and 10% for strip type
 	float aileronLen;	// Aileron length
-	float averageMeanChord; // Average mean chord i.e. (root chord + tip chord) / 2
+	float meanAverageChord; // Mean average chord i.e. (root chord + tip chord) / 2
 	float aspectRatio;	// Wing to chord ratio
 	float wingSurfArea;	// Total wing surface area
 	float fuseLen;	// Fuselage length(inches) from back of prop washer to vertical stabilizer hinge line

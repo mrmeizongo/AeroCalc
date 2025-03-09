@@ -7,15 +7,15 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	weight = _planeSettings.weight;
 	wingRootChord = wingspan * _planeSettings.wingRootChordModifier;
 	wingTipChord = wingRootChord * _planeSettings.wingTipChordModifier;
-	averageMeanChord = (wingRootChord + wingTipChord) / 2.0f;
-	aspectRatio = wingspan / averageMeanChord;
-	wingSurfArea = wingspan * averageMeanChord;
+	meanAverageChord = (wingRootChord + wingTipChord) / 2.0f;
+	aspectRatio = wingspan / meanAverageChord;
+	wingSurfArea = wingspan * meanAverageChord;
 	aileronSurfArea = 0.06f * wingSurfArea;
-	aileronChord = 0.25f * averageMeanChord;
+	aileronChord = 0.25f * meanAverageChord;
 	aileronLen = aileronSurfArea / aileronChord;
 	wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);
 	fuseLen = wingspan * _planeSettings.fuseLenModifier;
-	noseLen = (fuseLen * 0.21f);
+	noseLen = (fuseLen * _planeSettings.noseLenModifier);
 	tailLen = fuseLen - (noseLen + wingRootChord);
 	hStabArea = _planeSettings.hStabAreaModifier * wingSurfArea;
 	float tempH = hStabArea / 3;
@@ -56,7 +56,7 @@ std::ostream& operator<<(std::ostream& os, const AeroCalc& obj) {
 		<< "\nAirplane weight: " << obj.weight << " grams"
 		<< "\nWing root chord: " << obj.wingRootChord << "mm"
 		<< "\nWing tip chord: " << obj.wingTipChord << "mm"
-		<< "\nAverage mean chord: " << obj.averageMeanChord << "mm"
+		<< "\nMean average chord: " << obj.meanAverageChord << "mm"
 		<< "\nTotal wing surface area: " << obj.wingSurfArea << "sq/mm"
 		<< "\nWing load: " << obj.wingLoad << " oz/ft^2" << " = " << obj.wLoad
 		<< "\nAspect ratio: " << obj.aspectRatio << " = " << obj.AR
