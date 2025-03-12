@@ -4,8 +4,6 @@
 #include <string>
 using std::string;
 
-#define AEROCALC_VERSION "1.0.0"
-
 enum class StatusCode : uint8_t
 {
 	OK,
@@ -18,8 +16,9 @@ enum class StatusCode : uint8_t
 // Main cli program. Returns status code after processing input
 StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings);
 
-// Utility function to get input from user
-float getInput(string textToDisplay, float defaultValeu);
+// Overloaded utility function to get input from user
+string getInput(string textToDisplay, string defaultValue);
+float getInput(string textToDisplay, float defaultValue);
 
 // Utility function to calculate wingload
 void wingLoad(float _weight = 0.f, float _wingspan = 0.f, float averageMC = 0.f);

@@ -1,25 +1,34 @@
 #ifndef _AEROCALC_
 #define _AEROCALC_
 #include <iostream>
+#include <string>
+using std::string;
+using std::ostream;
+
+#define AEROCALC_VERSION "1.0.0"
 
 // Default values
-constexpr float WINGSPAN = 1200.0f;
-constexpr float FUSELENMODIFIER = 0.7f;
-constexpr float NOSELENMODIFIER = 0.21f;
-constexpr float WINGROOTCHORDMODIFIER = 0.1667f;
-constexpr float WINGTIPCHORDMODIFIER = 1.0f;
-constexpr float HSTABAREAMODIFIER = 0.225f;
-constexpr float VSTABAREAMODIFIER = 0.1125f;
-constexpr float WEIGHT = 1000.0f;
+#define AILERONTYPE "-b"
+#define WINGSPAN 1200.0f
+#define FUSELENMODIFIER 0.7f
+#define NOSELENMODIFIER 0.21f
+#define WINGROOTCHORDMODIFIER 0.1667f
+#define WINGTIPCHORDMODIFIER 1.0f
+#define HSTABAREAMODIFIER 0.225f
+#define HSTABTIPCHORDMODIFIER 1.0f
+#define VSTABAREAMODIFIER 0.5f
+#define WEIGHT 1000.0f
 
 // Struct to hold plane dimensions
 struct PlaneSettings
 {
+	string aileronType;
 	float wingspan;
 	float fuseLenModifier;
 	float noseLenModifier;
 	float wingRootChordModifier;
 	float wingTipChordModifier;
+	float hStabTipChordModifier;
 	float hStabAreaModifier;
 	float vStabAreaModifier;
 	float weight;
@@ -36,18 +45,26 @@ struct PlaneSettings
 	* VerticalStabArea = VStabAreaModifier(0...1) is 11.25% of winspan area
 	* Weight = 1000 grams (Estimate used for approximating wing load)
 	*/
-	PlaneSettings(float _wingspan = WINGSPAN, float _fuseLenModifier = FUSELENMODIFIER, float _noseLenModifier = NOSELENMODIFIER,
-		float _wingRootChordModifier = WINGROOTCHORDMODIFIER, float _wingTipChordModifier = WINGTIPCHORDMODIFIER,
-		float _hStabAreaModifier = HSTABAREAMODIFIER, float _vStabAreaModifier = VSTABAREAMODIFIER, float _weight = WEIGHT)
-		:wingspan(_wingspan), fuseLenModifier(_fuseLenModifier), noseLenModifier(_noseLenModifier), wingRootChordModifier(_wingRootChordModifier),
-		wingTipChordModifier(_wingTipChordModifier), hStabAreaModifier(_hStabAreaModifier), vStabAreaModifier(_vStabAreaModifier), weight(_weight) {}
+	PlaneSettings()
+		: aileronType(""), wingspan(0.f), fuseLenModifier(0.f),
+		noseLenModifier(0.f), wingRootChordModifier(0.f),
+		wingTipChordModifier(0.f), hStabTipChordModifier(0.f),
+		hStabAreaModifier(0.f), vStabAreaModifier(0.f), weight(0.f) {}
+
+	PlaneSettings(string _aileronType, float _wingspan, float _fuseLenModifier, float _noseLenModifier,
+		float _wingRootChordModifier, float _wingTipChordModifier, float _hStabTipChordModifier,
+		float _hStabAreaModifier, float _vStabAreaModifier, float _weight)
+		: aileronType(_aileronType), wingspan(_wingspan), fuseLenModifier(_fuseLenModifier),
+		noseLenModifier(_noseLenModifier), wingRootChordModifier(_wingRootChordModifier),
+		wingTipChordModifier(_wingTipChordModifier), hStabTipChordModifier(_hStabTipChordModifier),
+		hStabAreaModifier(_hStabAreaModifier), vStabAreaModifier(_vStabAreaModifier), weight(_weight) {}
 };
 
 class AeroCalc
 {
 public:
 	AeroCalc(PlaneSettings _planeSettings = PlaneSettings());
-	friend std::ostream& operator<<(std::ostream& os, const AeroCalc& obj);
+	friend ostream& operator<<(ostream& os, const AeroCalc& obj);
 
 private:
 	float wingspan;	// Length of wing * 2
@@ -55,24 +72,28 @@ private:
 	float wingTipChord; // Wing tip chord
 	float aileronSurfArea;	// Area of 1 aileron. 6% of total wing surface area for barn door type and 4% for strip type
 	float aileronChord;	// 25% of wing chord for barn door type and 10% for strip type
-	float aileronLen;	// Aileron length
-	float meanAverageChord; // Mean average chord i.e. (root chord + tip chord) / 2
+	float aileronSpan;	// Aileron span
+	float wingMeanAverageChord; // Mean average chord i.e. (root chord + tip chord) / 2
 	float aspectRatio;	// Wing to chord ratio
 	float wingSurfArea;	// Total wing surface area
 	float fuseLen;	// Fuselage length(inches) from back of prop washer to vertical stabilizer hinge line
 	float weight;	// Airplane weight(grams)
 	float noseLen;	// Nose length i.e. back of prop washer to wing leading edge
+	float noseMoment;	// Nose moment arm i.e. back of prop washer to 1/4(25%) forward of wing average mean chord
 	float tailLen;	// Tail length i.e. wing trailing edge to vertical stabilizer hinge line
+	float tailMoment;	// Tail moment arm i.e. 1/4(25%) aft of wing average mean chord to 1/4(25%) horizontal stabilizer average mean chord
 	float hStabArea;	// Horizontal stabilizer total surface area
 	float hStabSpan;	// Horizontal stabilizer length
-	float hStabChord;	// Horizontal stabilizer chord
+	float hStabRootChord;	// Horizontal stabilizer root chord
+	float hStabTipChord;	// Horizontal stabilizer tip chord
+	float hStabMeanAverageChord;	// Horizontal stabilizer mean average chord
 	float vStabArea;	// Vertical stabilizer total area
 	float vStabHeight;	// Vertical stabilizer height
 	float vStabWidth;	// Vertical stabilizer width
 	float elevChord;	// Elevator chord
 	float rudWidth;	// Rudder width
 	float wingLoad;	// Wing load i.e. airplane weight(in oz) divided by wing surface area(in square ft)
-	std::string wLoad;	// wing load category i.e. very low, low, moderate, high, very high
-	std::string AR;	// aspect ratio i.e. low, mid and high
+	string wLoad;	// wing load category i.e. very low, low, moderate, high, very high
+	string AR;	// aspect ratio i.e. low, mid and high
 };
 #endif
