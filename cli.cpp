@@ -20,15 +20,6 @@ string helpTxt =
 
 StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 {
-	// C++ programs start with argc being at least 1, and argv[0] being the program name
-	// Therefore there is no point in checking for argc <= 0
-	if (argc > 11)
-	{
-		cerr << "Arguments cannot exceed 9" << endl;
-		DISPLAY(helpTxt);
-		return StatusCode::INVALID_ARG_COUNT;
-	}
-
 	string atype = AILERONTYPE;
 	float ws = WINGSPAN;
 	float flm = FUSELENMODIFIER;
@@ -64,15 +55,45 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 		{
 			if (argc > 1)
 			{
+				if (argc > 11)
+				{
+					cerr << "Arguments cannot exceed 9" << endl;
+					DISPLAY(helpTxt);
+					return StatusCode::INVALID_ARG_COUNT;
+				}
+
 				string arg = argv[1];
 				if (arg.compare("--help") == 0 || arg.compare("-h") == 0)
 				{
+					if (argc != 2)
+					{
+						DISPLAY(helpTxt);
+						return StatusCode::INVALID_ARG;
+					}
 					DISPLAY(helpTxt);
 					return StatusCode::HELP;
 				}
 				if (arg.compare("--version") == 0 || arg.compare("-v") == 0)
 				{
+					if (argc != 2)
+					{
+						DISPLAY(helpTxt);
+						return StatusCode::INVALID_ARG;
+					}
 					DISPLAY(AEROCALC_VERSION);
+					return StatusCode::NO_OP;
+				}
+				if (arg.compare("--wingload") == 0 || arg.compare("-w") == 0)
+				{
+					if (argc != 5)
+					{
+						DISPLAY(helpTxt);
+						return StatusCode::INVALID_ARG;
+					}
+					float _w = stof(argv[2]);
+					float _ws = stof(argv[3]);
+					float _amc = stof(argv[4]);
+					wingLoad(_w, _ws, _amc);
 					return StatusCode::NO_OP;
 				}
 				if (arg.compare("-b") != 0 && arg.compare("b") != 0 && arg.compare("-s") != 0 && arg.compare("b") != 0)

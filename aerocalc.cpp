@@ -36,7 +36,6 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	fuseLen = wingspan * _planeSettings.fuseLenModifier;	// Fuselage length. Default modifier value is 70% of wingspan
 	noseLen = (fuseLen * _planeSettings.noseLenModifier);	// Nose length. Default modifier value is 21% of fuselage length 
 	noseMoment = noseLen + (wingMeanAverageChord * 0.25f);	// Nose moment arm. Back of prop to 25% forward of wing average mean chord
-	tailMoment = (wingMeanAverageChord * 0.75f) + (hStabMeanAverageChord * 0.25f);	// Tail moment arm. 25% aft of wing average mean chord to 25% forward of horizontal stabilizer average mean chord
 	tailLen = fuseLen - (noseLen + wingRootChord);	// Tail length. Wing trailing edge to vertical stabilizer hinge line
 
 	// Vertical stabilizer calculations
@@ -65,11 +64,12 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 }
 
 ostream& operator<<(ostream& os, const AeroCalc& obj) {
-	os << "Plane Dimensions"
+	os << "\nPlane Dimensions"
 		<< "\n----------------"
 		<< "\nWingspan: " << obj.wingspan << "mm"
 		<< "\nFuselage length: " << obj.fuseLen << "mm"
 		<< "\nNose length: " << obj.noseLen << "mm"
+		<< "\nNose Moment: " << obj.noseMoment << "mm"
 		<< "\nTail length: " << obj.tailLen << "mm"
 		<< "\nAirplane weight: " << obj.weight << " grams"
 		<< "\nWing root chord: " << obj.wingRootChord << "mm"

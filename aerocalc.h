@@ -81,7 +81,6 @@ private:
 	float noseLen;	// Nose length i.e. back of prop washer to wing leading edge
 	float noseMoment;	// Nose moment arm i.e. back of prop washer to 1/4(25%) forward of wing average mean chord
 	float tailLen;	// Tail length i.e. wing trailing edge to vertical stabilizer hinge line
-	float tailMoment;	// Tail moment arm i.e. 1/4(25%) aft of wing average mean chord to 1/4(25%) horizontal stabilizer average mean chord
 	float hStabArea;	// Horizontal stabilizer total surface area
 	float hStabSpan;	// Horizontal stabilizer length
 	float hStabRootChord;	// Horizontal stabilizer root chord
