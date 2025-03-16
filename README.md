@@ -15,7 +15,7 @@ AeroCalc [AileronType] [Wingspan] [FuselageLengthModifier] [NoseLengthModifier] 
 
 Options:  
 -h,    --help			Print command line options  
--w,    --wingload		Calculate wingload for a given weight, wingpspan, and average mean chord parameters  
+-w,    --wingload		Calculate wingload for a given weight, wingpspan, and aerodynamic mean chord parameters  
 
 Running program without arguments uses default values for airplane settings  
 Weight values are in grams and length values are in millimeters  

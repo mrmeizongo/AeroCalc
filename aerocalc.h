@@ -49,7 +49,8 @@ struct PlaneSettings
 		: aileronType(""), wingspan(0.f), fuseLenModifier(0.f),
 		noseLenModifier(0.f), wingRootChordModifier(0.f),
 		wingTipChordModifier(0.f), hStabTipChordModifier(0.f),
-		hStabAreaModifier(0.f), vStabAreaModifier(0.f), weight(0.f) {}
+		hStabAreaModifier(0.f), vStabAreaModifier(0.f), weight(0.f) {
+	}
 
 	PlaneSettings(string _aileronType, float _wingspan, float _fuseLenModifier, float _noseLenModifier,
 		float _wingRootChordModifier, float _wingTipChordModifier, float _hStabTipChordModifier,
@@ -57,7 +58,8 @@ struct PlaneSettings
 		: aileronType(_aileronType), wingspan(_wingspan), fuseLenModifier(_fuseLenModifier),
 		noseLenModifier(_noseLenModifier), wingRootChordModifier(_wingRootChordModifier),
 		wingTipChordModifier(_wingTipChordModifier), hStabTipChordModifier(_hStabTipChordModifier),
-		hStabAreaModifier(_hStabAreaModifier), vStabAreaModifier(_vStabAreaModifier), weight(_weight) {}
+		hStabAreaModifier(_hStabAreaModifier), vStabAreaModifier(_vStabAreaModifier), weight(_weight) {
+	}
 };
 
 class AeroCalc
@@ -73,19 +75,22 @@ private:
 	float aileronSurfArea;	// Area of 1 aileron. 6% of total wing surface area for barn door type and 4% for strip type
 	float aileronChord;	// 25% of wing chord for barn door type and 10% for strip type
 	float aileronSpan;	// Aileron span
-	float wingMeanAverageChord; // Mean average chord i.e. (root chord + tip chord) / 2
+	float wingMAC; // Mean aerodynamic chord i.e. (root chord + tip chord) / 2
+	float wingMACLoc;	// Where on the span the MAC is located
+	float cg;	// Center of gravity i.e. from leading edge of wing to 25% of wing mean aerodynamic chord
 	float aspectRatio;	// Wing to chord ratio
 	float wingSurfArea;	// Total wing surface area
 	float fuseLen;	// Fuselage length(inches) from back of prop washer to vertical stabilizer hinge line
 	float weight;	// Airplane weight(grams)
 	float noseLen;	// Nose length i.e. back of prop washer to wing leading edge
-	float noseMoment;	// Nose moment arm i.e. back of prop washer to 1/4(25%) forward of wing average mean chord
+	float noseMoment;	// Nose moment arm i.e. back of prop washer to 1/4(25%) forward of wing aerodynamic mean chord
 	float tailLen;	// Tail length i.e. wing trailing edge to vertical stabilizer hinge line
 	float hStabArea;	// Horizontal stabilizer total surface area
 	float hStabSpan;	// Horizontal stabilizer length
 	float hStabRootChord;	// Horizontal stabilizer root chord
 	float hStabTipChord;	// Horizontal stabilizer tip chord
-	float hStabMeanAverageChord;	// Horizontal stabilizer mean average chord
+	float hStabMAC;	// Horizontal stabilizer mean aerodynamic chord
+	float hStabMACLoc;	// Where on the span the MAC is loacted
 	float vStabArea;	// Vertical stabilizer total area
 	float vStabHeight;	// Vertical stabilizer height
 	float vStabWidth;	// Vertical stabilizer width

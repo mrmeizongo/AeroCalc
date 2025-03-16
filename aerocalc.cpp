@@ -1,6 +1,19 @@
 #include "aerocalc.h"
 #include <cmath>
 
+// Helper function calculate mean aerodynamic chord (MAC)
+static float calculateMAC(float root, float tip)
+{
+	float mac = (2.f / 3.f) * (((root + tip) - ((root * tip)/(root + tip))) / 1);
+	return mac;
+}
+
+static float getMacLocation(float span, float root, float tip)
+{
+	float macLoc = (span / 6) * ((root + (2 * tip)) / (root + tip));
+	return macLoc;
+}
+
 AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 {
 	// Length measurements are in millimeters and weight is in grams
@@ -10,8 +23,10 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	wingRootChord = wingspan * _planeSettings.wingRootChordModifier;	// Wing root chord length. Default modifier value is 16.67% of wingspan
 	wingTipChord = wingRootChord * _planeSettings.wingTipChordModifier;	//Wing tip chord length. Default modifier value is 100% of wing root chord
 	wingRootChord += wingRootChord - wingTipChord;	// Adjust the wing root chord to account for any taper to maintain the wing area
-	wingMeanAverageChord = (wingRootChord + wingTipChord) / 2.0f;	// Mean average chord length. This takes into account the root and tip chord length
-	wingSurfArea = wingspan * wingMeanAverageChord;	// Total wing surface area
+	wingMAC = calculateMAC(wingRootChord, wingTipChord);	// Mean aerodynamic chord length. This takes into account the root and tip chord length
+	wingMACLoc = getMacLocation(wingspan, wingRootChord, wingTipChord);	// Location of the MAC
+	cg = 0.25f * wingMAC;	// Center of gravity/ lift. This is calculated from the leading of wing to 25% of the wing mean aerodynamic chord
+	wingSurfArea = wingspan * wingMAC;	// Total wing surface area
 	wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);	// Wing load. oz/ft^2
 	aspectRatio = (float)std::pow(wingspan, 2) / wingSurfArea;	// Aspect ratio.  It's a measure of how long and narrow an airplane's wings are.
 
@@ -20,7 +35,7 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	float aileronChordModifier = 0.25f;	// Aileron chord modifier. 25% of wing chord(default) for barn door type and 10% for strip type
 	if (_planeSettings.aileronType == "-s" || _planeSettings.aileronType == "s")
 		aileronChordModifier = 0.1f;
-	aileronChord = aileronChordModifier * wingMeanAverageChord;	// Aileron chord length
+	aileronChord = aileronChordModifier * wingMAC;	// Aileron chord length
 	aileronSpan = aileronSurfArea / aileronChord;	// Aileron span
 
 	// Horizontal stabilizer calculations
@@ -28,14 +43,15 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	hStabRootChord = sqrtf((hStabArea / 3));	// Horizontal stabilizer root chord is square root of 1/3 the total horizontal stabilizer area
 	hStabTipChord = hStabRootChord * _planeSettings.hStabTipChordModifier;	// Horizontal stabilizer tip chord. The modifier value can used to taper the horizontal stabilizer
 	hStabRootChord += hStabRootChord - hStabTipChord;	// Adjust the horizontal stabilizer root chord to account for any taper to maintain the horizontal stab area
-	hStabMeanAverageChord = (hStabRootChord + hStabTipChord) / 2.0f;	// Horizontal stabilizer mean average chord
-	hStabSpan = hStabArea / hStabMeanAverageChord;	// Horizontal stabilizer span
+	hStabMAC = calculateMAC(hStabRootChord, hStabTipChord);	// Horizontal stabilizer mean aerodynamic chord
+	hStabSpan = hStabArea / hStabMAC;	// Horizontal stabilizer span
+	hStabMACLoc = getMacLocation(hStabSpan, hStabRootChord, hStabTipChord);	// Location of the MAC
 	elevChord = 0.25f * hStabRootChord;	// Elevator chord. 25% of horizontal stabilizer root chord
 
 	// Fuselage calculations
 	fuseLen = wingspan * _planeSettings.fuseLenModifier;	// Fuselage length. Default modifier value is 70% of wingspan
 	noseLen = (fuseLen * _planeSettings.noseLenModifier);	// Nose length. Default modifier value is 21% of fuselage length 
-	noseMoment = noseLen + (wingMeanAverageChord * 0.25f);	// Nose moment arm. Back of prop to 25% forward of wing average mean chord
+	noseMoment = noseLen + (wingMAC * 0.25f);	// Nose moment arm. Back of prop to 25% forward of wing aerodynamic mean chord
 	tailLen = fuseLen - (noseLen + wingRootChord);	// Tail length. Wing trailing edge to vertical stabilizer hinge line
 
 	// Vertical stabilizer calculations
@@ -74,7 +90,9 @@ ostream& operator<<(ostream& os, const AeroCalc& obj) {
 		<< "\nAirplane weight: " << obj.weight << " grams"
 		<< "\nWing root chord: " << obj.wingRootChord << "mm"
 		<< "\nWing tip chord: " << obj.wingTipChord << "mm"
-		<< "\nWing Mean average chord: " << obj.wingMeanAverageChord << "mm"
+		<< "\nWing mean aerodynamic chord: " << obj.wingMAC << "mm"
+		<< "\nWing mean aerodynamic chord location from root: " << obj.wingMACLoc << "mm"
+		<< "\nCenter of gravity: " << obj.cg << "mm"
 		<< "\nTotal wing surface area: " << obj.wingSurfArea << "sq/mm"
 		<< "\nWing load: " << obj.wingLoad << "oz/ft^2" << " = " << obj.wLoad
 		<< "\nAspect ratio: " << (int)obj.aspectRatio << ":1"  << " = " << obj.AR
@@ -84,7 +102,8 @@ ostream& operator<<(ostream& os, const AeroCalc& obj) {
 		<< "\nHorizontal stab span: " << obj.hStabSpan << "mm"
 		<< "\nHorizontal stab root chord: " << obj.hStabRootChord << "mm"
 		<< "\nHorizontal stab tip chord: " << obj.hStabTipChord << "mm"
-		<< "\nHorizontal stab mean average chord: " << obj.hStabMeanAverageChord << "mm"
+		<< "\nHorizontal stab mean aerodynamic chord: " << obj.hStabMAC << "mm"
+		<< "\nHorizontal stab mean aerodynamic chord location from root: " << obj.hStabMACLoc << "mm"
 		<< "\nHorizontal stab area: " << obj.hStabArea << "sq/mm"
 		<< "\nElevator chord: " << obj.elevChord << "mm"
 		<< "\nVertical stab height: " << obj.vStabHeight << "mm"

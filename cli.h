@@ -21,5 +21,5 @@ string getInput(string textToDisplay, string defaultValue);
 float getInput(string textToDisplay, float defaultValue);
 
 // Utility function to calculate wingload
-void wingLoad(float _weight = 0.f, float _wingspan = 0.f, float averageMC = 0.f);
+void wingLoad(float _weight = 0.f, float _wingspan = 0.f, float aerodynamicMC = 0.f);
 #endif

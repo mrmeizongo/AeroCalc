@@ -12,7 +12,7 @@ string helpTxt =
 "\n\tAeroCalc [AileronType] [Wingspan] [FuselageLengthModifier] [NoseLengthModifier] [WingRootChordModifier] [WingTipChordModifier] [HStabAreaModifier] [vStabAreaModifier] [Weight]"
 "\nOptions:"
 "\n-h, --help\t\t\tPrint command line options"
-"\n-w, --wingload\t\t\tCalculate wingload for a given weight, wingpspan, and average mean chord parameters."
+"\n-w, --wingload\t\t\tCalculate wingload for a given weight, wingpspan, and aerodynamic mean chord parameters."
 "\n-b, b\t\t\t\tSpecify barn type ailerons. Can be used in conjunction with weight and length parameters."
 "\n-s, s\t\t\t\tSpecify strip type ailerons. Can be used in conjunction with weight and length parameters."
 "\n\nRunning program without arguments uses default values for airplane settings"
@@ -192,9 +192,9 @@ string getInput(string textToDisplay, string defaultValue)
 	return value;
 }
 
-void wingLoad(float weight, float wingspan, float averageMC)
+void wingLoad(float weight, float wingspan, float aerodynamicMC)
 {
-	float wingSurfArea = wingspan * averageMC;
+	float wingSurfArea = wingspan * aerodynamicMC;
 	float wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);
 	string wLoad;
 	if (wingLoad < 10)
