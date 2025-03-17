@@ -34,8 +34,9 @@ struct PlaneSettings
 	float weight;
 
 	/*
-	* Wingspan, FuselageLengthModifier, WingRootChordModifier, WingTipChordModifier, Weight
+	* AileronType, Wingspan, FuselageLengthModifier, WingRootChordModifier, WingTipChordModifier, Weight
 	* Defaults:
+	* AileronType = -b
 	* Wingspan = 1200 mm
 	* FuselageLength = FuseLenModifier(0...1) is 75% of wingspan
 	* NoseLength = NoseLenModifier(0...1) is 21% of fuselage length

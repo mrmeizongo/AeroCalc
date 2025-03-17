@@ -32,7 +32,7 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 
 	// Aileron calculations
 	aileronSurfArea = 0.05f * wingSurfArea;	// Aileron surface area. 5% of total wing surface area for each aileron
-	float aileronChordModifier = 0.25f;	// Aileron chord modifier. 25% of wing chord(default) for barn door type and 10% for strip type
+	float aileronChordModifier = 0.25f;	// Aileron chord modifier. 25% of wing MAC(default) for barn door type and 10% for strip type
 	if (_planeSettings.aileronType == "-s" || _planeSettings.aileronType == "s")
 		aileronChordModifier = 0.1f;
 	aileronChord = aileronChordModifier * wingMAC;	// Aileron chord length
@@ -60,16 +60,16 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	vStabHeight = vStabArea / vStabWidth;	// Vertical stabilizer height
 	rudWidth = vStabWidth / 2.0f;	// Rudder width. Half of vertical stabilizer width for a little extra rudder authority
 
-	if (wingLoad > 20)
-		wLoad = "Very High";
-	else if (wingLoad >= 16)
-		wLoad = "High";
-	else if (wingLoad >= 12)
-		wLoad = "Moderate";
-	else if (wingLoad >= 10)
-		wLoad = "Low";
-	else
+	if (wingLoad < 10)
 		wLoad = "Very Low";
+	else if (wingLoad >= 10 && wingLoad <= 12)
+		wLoad = "Low";
+	else if (wingLoad > 12 && wingLoad < 16)
+		wLoad = "Moderate";
+	else if (wingLoad >= 16 && wingLoad <= 20)
+		wLoad = "High";
+	else
+		wLoad = "Very High";
 
 	if (aspectRatio > 12)
 		AR = "High";

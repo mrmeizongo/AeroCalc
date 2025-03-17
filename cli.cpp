@@ -4,7 +4,7 @@
 #include <sstream>
 using namespace std;
 
-#define DISPLAY(txt) cout << (txt);
+#define DISPLAY(txt) cout << (txt)
 
 string helpTxt =
 "\nUsage: "
@@ -20,7 +20,7 @@ string helpTxt =
 
 StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 {
-	string atype = AILERONTYPE;
+	string at = AILERONTYPE;
 	float ws = WINGSPAN;
 	float flm = FUSELENMODIFIER;
 	float nlm = NOSELENMODIFIER;
@@ -38,7 +38,7 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 			"\nLength modifiers are in percentages(0..1), wingspan is in millimeters and weight is in grams."
 			"\nLeave input blank and press enter key to use default values."
 			"\n");
-		atype = getInput("AileronType", atype);
+		at = getInput("AileronType", at);
 		ws = getInput("Winspan", ws);
 		flm = getInput("FuselageLengthModifier", flm);
 		nlm = getInput("NoseLengthModifier", nlm);
@@ -101,7 +101,7 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 					DISPLAY(helpTxt);
 					return StatusCode::INVALID_ARG;
 				}
-				atype = arg;
+				at = arg;
 			}
 			if (argc > 2)
 				ws = stof(argv[2]);
@@ -131,7 +131,7 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 		}
 	}
 
-	_planeSettings = PlaneSettings(atype, ws, flm, nlm, wrcm, wtcm, hstcm, hsam, vsam, w);
+	_planeSettings = PlaneSettings(at, ws, flm, nlm, wrcm, wtcm, hstcm, hsam, vsam, w);
 	return StatusCode::OK;
 }
 
