@@ -4,13 +4,15 @@
 // Helper function calculate mean aerodynamic chord (MAC)
 static float calculateMAC(float root, float tip)
 {
-	float mac = (2.f / 3.f) * (((root + tip) - ((root * tip)/(root + tip))) / 1);
+	float tr = tip / root;	// taper ratio
+	float mac = root * (2.f / 3.f) * ((1 + tr + (tr * tr)) / (1 + tr));
 	return mac;
 }
 
 static float getMacLocation(float span, float root, float tip)
 {
-	float macLoc = (span / 6) * ((root + (2 * tip)) / (root + tip));
+	float tr = tip / root;	// taper ratio
+	float macLoc = (span / 6) * ((1 + (2 * tr)) / (1 + tr));
 	return macLoc;
 }
 
@@ -22,13 +24,13 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	weight = _planeSettings.weight;	// Airplane weight
 	wingRootChord = wingspan * _planeSettings.wingRootChordModifier;	// Wing root chord length. Default modifier value is 16.67% of wingspan
 	wingTipChord = wingRootChord * _planeSettings.wingTipChordModifier;	//Wing tip chord length. Default modifier value is 100% of wing root chord
-	wingRootChord += wingRootChord - wingTipChord;	// Adjust the wing root chord to account for any taper to maintain the wing area
 	wingMAC = calculateMAC(wingRootChord, wingTipChord);	// Mean aerodynamic chord length. This takes into account the root and tip chord length
 	wingMACLoc = getMacLocation(wingspan, wingRootChord, wingTipChord);	// Location of the MAC
 	cg = 0.25f * wingMAC;	// Center of gravity/ lift. This is calculated from the leading of wing to 25% of the wing mean aerodynamic chord
 	wingSurfArea = wingspan * wingMAC;	// Total wing surface area
 	wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);	// Wing load. oz/ft^2
-	aspectRatio = (float)std::pow(wingspan, 2) / wingSurfArea;	// Aspect ratio.  It's a measure of how long and narrow an airplane's wings are.
+	float ar = (float)std::pow(wingspan, 2) / wingSurfArea;	// Aspect ratio.  It's a measure of how long and narrow an airplane's wings are.
+	aspectRatio = std::ceil(ar);	// Round up aspect ratio
 
 	// Aileron calculations
 	aileronSurfArea = 0.05f * wingSurfArea;	// Aileron surface area. 5% of total wing surface area for each aileron
@@ -42,11 +44,10 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	hStabArea = _planeSettings.hStabAreaModifier * wingSurfArea;	// Horizontal stabilizer area. Default modifier value is 22.5% of wing area
 	hStabRootChord = sqrtf((hStabArea / 3));	// Horizontal stabilizer root chord is square root of 1/3 the total horizontal stabilizer area
 	hStabTipChord = hStabRootChord * _planeSettings.hStabTipChordModifier;	// Horizontal stabilizer tip chord. The modifier value can used to taper the horizontal stabilizer
-	hStabRootChord += hStabRootChord - hStabTipChord;	// Adjust the horizontal stabilizer root chord to account for any taper to maintain the horizontal stab area
 	hStabMAC = calculateMAC(hStabRootChord, hStabTipChord);	// Horizontal stabilizer mean aerodynamic chord
 	hStabSpan = hStabArea / hStabMAC;	// Horizontal stabilizer span
 	hStabMACLoc = getMacLocation(hStabSpan, hStabRootChord, hStabTipChord);	// Location of the MAC
-	elevChord = 0.25f * hStabRootChord;	// Elevator chord. 25% of horizontal stabilizer root chord
+	elevChord = 0.25f * hStabMAC;	// Elevator chord. 25% of horizontal stabilizer MAC
 
 	// Fuselage calculations
 	fuseLen = wingspan * _planeSettings.fuseLenModifier;	// Fuselage length. Default modifier value is 70% of wingspan
