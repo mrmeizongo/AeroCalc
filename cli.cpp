@@ -197,15 +197,15 @@ void wingLoad(float weight, float wingspan, float aerodynamicMC)
 	float wingSurfArea = wingspan * aerodynamicMC;
 	float wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);
 	string wLoad;
-	if (wingLoad < 10)
+	if (wingLoad < 8)
 		wLoad = "Very Low";
-	else if (wingLoad >= 10 && wingLoad <= 12)
+	else if (wingLoad >= 8 && wingLoad < 15)
 		wLoad = "Low";
-	else if (wingLoad > 12 && wingLoad < 16)
+	else if (wingLoad >= 15 && wingLoad < 25)
 		wLoad = "Moderate";
-	else if (wingLoad >= 16 && wingLoad <= 20)
+	else if (wingLoad >= 25 && wingLoad < 35)
 		wLoad = "High";
-	else
+	else if (wingLoad >= 35)
 		wLoad = "Very High";
 	DISPLAY(format("Wing load: {:.2f}oz/ft^2 = {}", wingLoad, wLoad));
 }

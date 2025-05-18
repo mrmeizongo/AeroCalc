@@ -1,7 +1,7 @@
 #include "aerocalc.h"
 #include <cmath>
 
-// Helper function calculate mean aerodynamic chord (MAC)
+// Helper function
 static float calculateMAC(float root, float tip)
 {
 	float tr = tip / root;	// taper ratio
@@ -61,15 +61,15 @@ AeroCalc::AeroCalc(PlaneSettings _planeSettings)
 	vStabHeight = vStabArea / vStabWidth;	// Vertical stabilizer height
 	rudWidth = vStabWidth / 2.0f;	// Rudder width. Half of vertical stabilizer width for a little extra rudder authority
 
-	if (wingLoad < 10)
+	if (wingLoad < 8)
 		wLoad = "Very Low";
-	else if (wingLoad >= 10 && wingLoad <= 12)
+	else if (wingLoad >= 8 && wingLoad < 15)
 		wLoad = "Low";
-	else if (wingLoad > 12 && wingLoad < 16)
+	else if (wingLoad >= 15 && wingLoad < 25)
 		wLoad = "Moderate";
-	else if (wingLoad >= 16 && wingLoad <= 20)
+	else if (wingLoad >= 25 && wingLoad < 35)
 		wLoad = "High";
-	else
+	else if(wingLoad >= 35)
 		wLoad = "Very High";
 
 	if (aspectRatio > 12)
