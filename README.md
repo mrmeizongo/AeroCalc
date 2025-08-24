@@ -41,4 +41,5 @@ Weight = 1000 grams (Estimate used for approximating wing load.)
 ## Building the project:
 Open the folder in Microsoft Visual Studio and click on the build button, you can add the path of the generated executable to the environmental variables and run it directly from the command prompt.  
 You can also 'cd' into the folder containing the executable using the command prompt and run it from there.  
+An x64 executable has been included for your convenience in [AeroCalc.exe](Release/AeroCalc.exe).
 After the airplane is built using the generated measurements, a better wingload estimate can be calculated from the final weight using the -w option.
