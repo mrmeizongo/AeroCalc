@@ -18,19 +18,21 @@ Options:
 -w,    --wingload		Calculate wingload for a given weight, wingpspan, and aerodynamic mean chord parameters  
 
 Running program without arguments uses default values for airplane settings  
-Weight values are in grams and length values are in millimeters  
+The defaults were designed with a nose mounted propeller in mind.  
+If designing a push-prop type plane, modify the nose length to be between 0.5-0.7 of the fuselage length.  
+Weight values are in grams and length values are in millimeters.  
 
 ## Default values:  
 AileronType = -b (-b for barn type ailerons, -s for string type ailerons)
 Wingspan = 1200 mm  (Everything starts from a user provided wingspan. I chose 1200mm as a starting point)  
-FuselageLength = FuseLenModifier(0...1) is 70% of wingspan  
-NoseLength = NoseLenModifier(0...1) is 21% of fuselage length  
-WingRootChord = WingRootChordModifier(0...1) is 16.67% of wingspan or 1/6 of wingspan  
-WingTipChord = WingTipChordModifier(0...1) is 100% of wingRootChord(for a rectangular wing)  
-HorizontalStabArea = HStabAreaModifier(0...1) is 22.5% of winspan area  
-HorizonalTipChord = HStabChordModifier(0...1) is 100% of horizontalStabRootChord(for a rectangular wing)
-VerticalStabArea = VStabAreaModifier(0...1) is 50% of horizontal stab area  
-Weight = 1000 grams (Estimate used for approximating wing load)  
+FuselageLength = FuseLenModifier(0...1) - Default is 70% of wingspan  
+NoseLength = NoseLenModifier(0...1) - Default is 21% of fuselage length  
+WingRootChord = WingRootChordModifier(0...1) - Default is 16.67% of wingspan or 1/6 of wingspan  
+WingTipChord = WingTipChordModifier(0...1) - Default is 100% of wingRootChord(for a rectangular wing)  
+HorizontalStabArea = HStabAreaModifier(0...1) - Default is 22.5% of winspan area  
+HorizonalTipChord = HStabChordModifier(0...1) - Default is 100% of horizontalStabRootChord(for a rectangular wing)
+VerticalStabArea = VStabAreaModifier(0...1) - Default is 50% of horizontal stab area  
+Weight = 1000 grams (Estimate used for approximating wing load.)  
 
 
 ## Building the project:

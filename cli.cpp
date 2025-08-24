@@ -57,7 +57,7 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 			{
 				if (argc > 11)
 				{
-					cerr << "Arguments cannot exceed 9" << endl;
+					cerr << "Arguments cannot exceed 10" << endl;
 					DISPLAY(helpTxt);
 					return StatusCode::INVALID_ARG_COUNT;
 				}
