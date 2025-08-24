@@ -38,12 +38,12 @@ struct PlaneSettings
 	* Defaults:
 	* AileronType = -b
 	* Wingspan = 1200 mm
-	* FuselageLength = FuseLenModifier(0...1) is 75% of wingspan
-	* NoseLength = NoseLenModifier(0...1) is 21% of fuselage length
-	* WingRootChord = WingRootChordModifier(0...1) is 16.67% of wingspan or 1/6 of wingspan
-	* WingTipChord = WingTipChordModifier(0...1) is 100% of wingRootChord
-	* HorizontalStabArea = HStabAreaModifier(0...1) is 22.5% of winspan area
-	* VerticalStabArea = VStabAreaModifier(0...1) is 11.25% of winspan area
+	* FuselageLength = FuseLenModifier(0...1) - Default is 75% of wingspan
+	* NoseLength = NoseLenModifier(0...1) - Default is 25% of fuselage length
+	* WingRootChord = WingRootChordModifier(0...1) - Default is 16.67% of wingspan or 1/6 of wingspan
+	* WingTipChord = WingTipChordModifier(0...1) - Default is 100% of wingRootChord
+	* HorizontalStabArea = HStabAreaModifier(0...1) - Default is 22.5% of winspan area
+	* VerticalStabArea = VStabAreaModifier(0...1) - Default is 11.25% of winspan area
 	* Weight = 1000 grams (Estimate used for approximating wing load)
 	*/
 	PlaneSettings()
