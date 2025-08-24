@@ -19,14 +19,15 @@ Options:
 
 Running program without arguments uses default values for airplane settings  
 The defaults were designed with a nose mounted propeller in mind.  
-If designing a push-prop type plane, modify the nose length to be between 0.5-0.7 of the fuselage length.  
+If designing a push-prop type plane, modify the nose length to be between 0.45-0.6 of the fuselage length.  
 Weight values are in grams and length values are in millimeters.  
+The defaults are not set in stone. You can deviate from them a good bit and still end up with a good flying plane when balanced properly.  
 
 ## Default values:  
 AileronType = -b (-b for barn type ailerons, -s for string type ailerons)
 Wingspan = 1200 mm  (Everything starts from a user provided wingspan. I chose 1200mm as a starting point)  
 FuselageLength = FuseLenModifier(0...1) - Default is 70% of wingspan  
-NoseLength = NoseLenModifier(0...1) - Default is 21% of fuselage length  
+NoseLength = NoseLenModifier(0...1) - Default is 25% of fuselage length  
 WingRootChord = WingRootChordModifier(0...1) - Default is 16.67% of wingspan or 1/6 of wingspan  
 WingTipChord = WingTipChordModifier(0...1) - Default is 100% of wingRootChord(for a rectangular wing)  
 HorizontalStabArea = HStabAreaModifier(0...1) - Default is 22.5% of winspan area  
