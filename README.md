@@ -4,7 +4,9 @@ AeroCalc is a command line tool that I built to help with my rc plane dimension 
 It was inspired by Chuck Cunningham's RC Design Made Easy guide.  
 The guide can be found at [Chuck Cunningham's RC Design Made Easy](https://www.rcuniverse.com/forum/scratch-building-aircraft-design-3d-cad-174/11560594-cunninghams-rcm-design-information.html)  
 
-![Plane Design Made Easy](Assets/Images/Plane.jpg)  
+<p align="center">
+  <img src="Assets/Images/Plane.jpg" />
+</p> 
 
 If you clone the project and add other features please submit a pull request. :)  
 ___  
