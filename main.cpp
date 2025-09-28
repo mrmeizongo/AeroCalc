@@ -8,14 +8,14 @@
 
 int main(int argc, char* argv[])
 {
-	PlaneSettings planeSettings;
-	StatusCode status = cli(argc, argv, planeSettings);
+	PlaneConfig config;
+	StatusCode status = cli(argc, argv, config);
 
 	switch (status)
 	{
 	case StatusCode::OK:
 	{
-		AeroCalc plane = AeroCalc(planeSettings);
+		AeroCalc plane = AeroCalc(config);
 		std::cout << std::fixed << std::setprecision(2);
 		std::cout << plane << std::endl;
 		return 0;

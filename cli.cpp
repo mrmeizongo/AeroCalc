@@ -18,7 +18,7 @@ string helpTxt =
 "\n\nRunning program without arguments uses default values for airplane settings"
 "\nWeight values are in grams and length values are in millimeters";
 
-StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
+StatusCode cli(int argc, char* argv[], PlaneConfig& config)
 {
 	string at = AILERONTYPE;
 	float ws = WINGSPAN;
@@ -131,7 +131,7 @@ StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings)
 		}
 	}
 
-	_planeSettings = PlaneSettings(at, ws, flm, nlm, wrcm, wtcm, hstcm, hsam, vsam, w);
+	config = PlaneConfig(at, ws, flm, nlm, wrcm, wtcm, hstcm, hsam, vsam, w);
 	return StatusCode::OK;
 }
 

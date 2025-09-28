@@ -20,7 +20,7 @@ using std::ostream;
 #define WEIGHT 1000.0f
 
 // Struct to hold plane dimensions
-struct PlaneSettings
+struct PlaneConfig
 {
 	string aileronType;
 	float wingspan;
@@ -46,14 +46,14 @@ struct PlaneSettings
 	* VerticalStabArea = VStabAreaModifier(0...1) - Default is 11.25% of winspan area
 	* Weight = 1000 grams (Estimate used for approximating wing load)
 	*/
-	PlaneSettings()
+	PlaneConfig()
 		: aileronType(""), wingspan(0.f), fuseLenModifier(0.f),
 		noseLenModifier(0.f), wingRootChordModifier(0.f),
 		wingTipChordModifier(0.f), hStabTipChordModifier(0.f),
 		hStabAreaModifier(0.f), vStabAreaModifier(0.f), weight(0.f) {
 	}
 
-	PlaneSettings(string _aileronType, float _wingspan, float _fuseLenModifier, float _noseLenModifier,
+	PlaneConfig(string _aileronType, float _wingspan, float _fuseLenModifier, float _noseLenModifier,
 		float _wingRootChordModifier, float _wingTipChordModifier, float _hStabTipChordModifier,
 		float _hStabAreaModifier, float _vStabAreaModifier, float _weight)
 		: aileronType(_aileronType), wingspan(_wingspan), fuseLenModifier(_fuseLenModifier),
@@ -66,7 +66,7 @@ struct PlaneSettings
 class AeroCalc
 {
 public:
-	AeroCalc(PlaneSettings _planeSettings = PlaneSettings());
+	AeroCalc(PlaneConfig config = PlaneConfig());
 	friend ostream& operator<<(ostream& os, const AeroCalc& obj);
 
 private:

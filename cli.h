@@ -14,7 +14,7 @@ enum class StatusCode : uint8_t
 };
 
 // Main cli program. Returns status code after processing input
-StatusCode cli(int argc, char* argv[], PlaneSettings& _planeSettings);
+StatusCode cli(int argc, char* argv[], PlaneConfig& config);
 
 // Overloaded utility function to get input from user
 string getInput(string textToDisplay, string defaultValue);
