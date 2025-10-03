@@ -29,8 +29,7 @@ AeroCalc::AeroCalc(PlaneConfig config)
 	cg = 0.25f * wingMAC;	// Center of gravity/ lift. This is calculated from the leading of wing to 25% of the wing mean aerodynamic chord
 	wingSurfArea = wingspan * wingMAC;	// Total wing surface area
 	wingLoad = (weight / 28.35f) / (wingSurfArea / 92900);	// Wing load. oz/ft^2
-	float ar = (float)std::pow(wingspan, 2) / wingSurfArea;	// Aspect ratio.  It's a measure of how long and narrow an airplane's wings are.
-	aspectRatio = std::round(ar);	// Round aspect ratio
+	aspectRatio = (float)std::pow(wingspan, 2) / wingSurfArea;	// Aspect ratio.  It's a measure of how long and narrow an airplane's wings are.
 
 	// Aileron calculations
 	aileronSurfArea = 0.05f * wingSurfArea;	// Aileron surface area. 5% of total wing surface area for each aileron
@@ -96,7 +95,7 @@ ostream& operator<<(ostream& os, const AeroCalc& obj) {
 		<< "\nCenter of gravity: " << obj.cg << "mm"
 		<< "\nTotal wing surface area: " << obj.wingSurfArea << "sq/mm"
 		<< "\nWing load: " << obj.wingLoad << "oz/ft^2" << " = " << obj.wLoad
-		<< "\nAspect ratio: " << (int)obj.aspectRatio << ":1"  << " = " << obj.AR
+		<< "\nAspect ratio: " << obj.aspectRatio << " : 1"  << " = " << obj.AR
 		<< "\nAileron chord: " << obj.aileronChord << "mm"
 		<< "\nAileron length: " << obj.aileronSpan << "mm"
 		<< "\nAileron surface area: " << obj.aileronSurfArea << " sq/mm"
